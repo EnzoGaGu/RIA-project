@@ -8,18 +8,23 @@ import {
 } from "@mui/material";
 import Movie from "../types/Movie";
 
-export default function MovieCard({ movie, poster_size }) {
+export default function MovieCard({ movie, poster_size, onMouseEnterHandler, onMouseLeaveHandler }) {
 	if (movie instanceof Movie) {
 		return (
 			<Card
 				sx={{
 					marginY: "10px",
 					width: `${poster_size ? poster_size : "185"}px`,
+					backgroundColor: "transparent",
+					textAlign: "center",
+					margin: "auto",
 				}}
+				onMouseEnter={onMouseEnterHandler}
+				onMouseLeave={onMouseLeaveHandler}
 			>
 				<CardActionArea
 					sx={{
-						opacity: "0.9",
+						opacity: "0.8",
 						transition: "opacity .5s ease-out",
 						"&:hover": {
 							opacity: "1.0",

@@ -3,14 +3,15 @@ import "./App.css";
 import { discoverMovies } from "./services/TmdbApi";
 import MovieList from "./types/MovieList";
 import Movie from "./types/Movie";
-import { Box, Grid, useMediaQuery } from "@mui/material";
+import { Box, Grid, makeStyles, useMediaQuery, useTheme } from "@mui/material";
 import MovieCard from "./components/MovieCard";
 
 function App() {
 	const [movies, setMovies] = useState(null);
 	const [loading, setLoading] = useState(true);
 	const [background, setBackground] = useState();
-	const isLgUp = useMediaQuery("(min-width: 1200px)");
+	const theme = useTheme();
+	const isLgUp = useMediaQuery(theme.breakpoints.up("lg"));
 
 	useEffect(() => {
 		setLoading(true);
@@ -37,36 +38,37 @@ function App() {
 						? `linear-gradient(0deg, rgba(0,0,0,1) 20%, rgba(255,255,255,0) 100%),
 							url("https://image.tmdb.org/t/p/original${background}")`
 						: "inherit",
-					backgroundSize: "100vw calc(((100vw / 16) * 9) + 10px)",
+					backgroundSize: "100vw calc(((100vw / 16) * 9) + 15px)",
 					backgroundRepeat: "no-repeat",
 					padding: "2rem",
 				}}
 			>
-				<Grid container spacing={2}>
+				<Grid container spacing={2} justifyContent={"space-between"} alignItems={"center"}>
 					{movies instanceof MovieList
 						? movies.results.map((movie) => {
 								if (movie instanceof Movie) {
 									return (
 										<Grid
 											item
-											xs={6}
+											xs={12}
+											sm={6}
 											md={3}
 											key={movie.id}
-											onMouseEnter={() =>
-												setBackground(
-													movie.backdrop_path
-												)
-											}
-											onMouseLeave={() =>
-												setBackground(
-													movies.results[0]
-														.backdrop_path
-												)
-											}
 										>
 											<MovieCard
 												movie={movie}
 												poster_size={isLgUp ? 300 : 185}
+												onMouseEnterHandler={() =>
+													setBackground(
+														movie.backdrop_path
+													)
+												}
+												onMouseLeaveHandler={() =>
+													setBackground(
+														movies.results[0]
+															.backdrop_path
+													)
+												}
 											/>
 										</Grid>
 									);
