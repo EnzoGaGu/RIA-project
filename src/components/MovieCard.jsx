@@ -8,7 +8,12 @@ import {
 } from "@mui/material";
 import Movie from "../types/Movie";
 
-export default function MovieCard({ movie, poster_size, onMouseEnterHandler, onMouseLeaveHandler }) {
+export default function MovieCard({
+	movie,
+	poster_size,
+	onMouseEnterHandler,
+	onMouseLeaveHandler,
+}) {
 	if (movie instanceof Movie) {
 		return (
 			<Card
