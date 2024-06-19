@@ -65,7 +65,6 @@ export default function NavBar({
 							},
 							textShadow: "2px 2px 2px rgba(0,0,0,.5)",
 							"&:hover": {
-								textShadow: "none",
 								textShadow:
 									"0 0 10px rgba(255,255,255,.25), 0 0 10px rgba(255,255,255,.25), 0 0 10px rgba(255,255,255,.25), 0 0 10px rgba(255,255,255,.25), 0 0 10px rgba(255,255,255,.25), 0 0 10px rgba(255,255,255,.25), 0 0 10px rgba(255,255,255,.25)",
 								cursor: "pointer",
