@@ -12,6 +12,7 @@ import {
 	useTheme,
 } from "@mui/material";
 import { cloneElement } from "react";
+import { Link } from "react-router-dom";
 
 function ElevationScroll(props) {
 	const { children, target } = props;
@@ -55,24 +56,26 @@ export default function NavBar({
 						justifyContent: "space-between",
 					}}
 				>
-					<Typography
-						variant="h5"
-						fontWeight={700}
-						sx={{
-							display: {
-								xs: hasSearchBar ? "none" : "initial",
-								sm: "initial",
-							},
-							textShadow: "2px 2px 2px rgba(0,0,0,.5)",
-							"&:hover": {
-								textShadow:
-									"0 0 10px rgba(255,255,255,.25), 0 0 10px rgba(255,255,255,.25), 0 0 10px rgba(255,255,255,.25), 0 0 10px rgba(255,255,255,.25), 0 0 10px rgba(255,255,255,.25), 0 0 10px rgba(255,255,255,.25), 0 0 10px rgba(255,255,255,.25)",
-								cursor: "pointer",
-							},
-						}}
-					>
-						Peliculas.uy
-					</Typography>
+					<Link to="/">
+						<Typography
+							variant="h5"
+							fontWeight={700}
+							color="white"
+							sx={{
+								display: {
+									xs: hasSearchBar ? "none" : "initial",
+									sm: "initial",
+								},
+								textShadow: "2px 2px 2px rgba(0,0,0,.5)",
+								"&:hover": {
+									textShadow:
+										"0 0 10px rgba(255,255,255,.25), 0 0 10px rgba(255,255,255,.25), 0 0 10px rgba(255,255,255,.25), 0 0 10px rgba(255,255,255,.25), 0 0 10px rgba(255,255,255,.25), 0 0 10px rgba(255,255,255,.25), 0 0 10px rgba(255,255,255,.25)",
+								},
+							}}
+						>
+							Peliculas.uy
+						</Typography>
+					</Link>
 					{hasSearchBar && (
 						<TextField
 							variant="outlined"

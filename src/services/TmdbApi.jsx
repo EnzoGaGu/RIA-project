@@ -1,5 +1,7 @@
 import MovieList from "../types/MovieList";
+import MovieDetails from "../types/MovieDetails";
 import Filter from "./Filter";
+import ErrorStatus from "../errors/ErrorStatus";
 
 const API_BASE_URL = "https://api.themoviedb.org/3";
 const API_KEY = "a5ccf2019c0fd5338578c73a931b2a8b";
@@ -17,10 +19,16 @@ async function fethAPI(endpoint, queryParams) {
 			url += `&${filter.name}=${filter.value}`;
 		});
 	} else {
-		if (!(queryParams == null)) {
+		if (
+			!(
+				queryParams == null ||
+				(Array.isArray(queryParams) && queryParams.length === 0)
+			)
+		) {
 			console.error(`${endpoint}: Query params con tipo no válido.`);
-			throw new TypeError(
-				"Los query params llevan un tipo de dato no reconocido."
+			throw new ErrorStatus(
+				"Los query params llevan un tipo de dato no reconocido",
+				500
 			);
 		}
 	}
@@ -32,14 +40,22 @@ async function fethAPI(endpoint, queryParams) {
 		},
 	};
 
-	return fetch(url, options).then((response) => {
-		if (response.ok) {
-			return response.json();
-		} else {
-			console.error(`${endpoint}: Error en fetch.`);
-			throw new Error("Hubo un error intentando obtener los datos.");
-		}
-	});
+	return fetch(url, options)
+		.then(async (response) => {
+			if (200 <= response.status && response.status < 400) {
+				return response.json();
+			} else {
+				if (response.status == 404) {
+					throw new ErrorStatus("No se encontró el recurso.", 404);
+				} else {
+					const json = await response.json();
+					throw new ErrorStatus(json.status_message, response.status);
+				}
+			}
+		})
+		.catch(async (error) => {
+			throw error;
+		});
 }
 
 export async function discoverMovies(page) {
@@ -55,12 +71,12 @@ export async function discoverMovies(page) {
 			.then((json) => {
 				return new MovieList(json);
 			})
-			.catch((error) => {
-				console.error(`/discover/movie: ${error}`);
-				throw new Error(error);
+			.catch(async (error) => {
+				console.error(`/discover/movie (${error.status}): ${error.message}`);
+				throw error;
 			});
 	} else {
-		throw new TypeError("La página debe ser un entero.");
+		throw new ErrorStatus("La página debe ser un entero", 400);
 	}
 }
 
@@ -78,12 +94,12 @@ export async function searchMovies(page, query) {
 			.then((json) => {
 				return new MovieList(json);
 			})
-			.catch((error) => {
-				console.error(`/search/movie: ${error}`);
-				throw new Error(error);
+			.catch(async (error) => {
+				console.error(`/search/movie (${error.status}): ${error.message}`);
+				throw error;
 			});
 	} else {
-		throw new TypeError("La página debe ser un entero.");
+		throw new ErrorStatus("La página debe ser un entero", 400);
 	}
 }
 
@@ -91,13 +107,13 @@ export async function movieDetails(movie_id) {
 	if (typeof movie_id === "number" && Number.isInteger(movie_id)) {
 		return fethAPI(`/movie/${movie_id}`, [])
 			.then((json) => {
-				return new movieDetails(json);
+				return new MovieDetails(json);
 			})
 			.catch((error) => {
-				console.error(`/movie/${movie_id}: ${error}`);
-				throw new Error(error);
+				console.error(`/movie/${movie_id} (${error.status}): ${error.message}`)
+				throw error;
 			});
 	} else {
-		throw new TypeError("La ID de la película debe ser un entero.");
+		throw new ErrorStatus("La ID de la película debe ser un entero", 400);
 	}
 }

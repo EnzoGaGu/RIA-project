@@ -7,6 +7,8 @@ import {
 	Typography,
 } from "@mui/material";
 import Movie from "../types/Movie";
+import { Link } from "react-router-dom";
+import ErrorStatus from "../errors/ErrorStatus";
 
 export default function MovieCard({
 	movie,
@@ -36,77 +38,81 @@ export default function MovieCard({
 						},
 					}}
 				>
-					<CardMedia
-						image={
-							"https://image.tmdb.org/t/p/w" +
-							(poster_size ? poster_size : "185") +
-							movie.poster_path
-						}
-						sx={{
-							height: `${
-								poster_size ? poster_size * (278 / 185) : "278"
-							}px`,
-						}}
-					>
-						<Box
+					<Link to={`pelicula/${movie.id}`}>
+						<CardMedia
+							image={
+								"https://image.tmdb.org/t/p/w" +
+								(poster_size ? poster_size : "185") +
+								movie.poster_path
+							}
 							sx={{
-								width: "100%",
-								height: "100%",
-								backgroundImage:
-									"linear-gradient(0deg, rgba(0,0,0,1) 10%, rgba(255,255,255,0) 100%)",
-							}}
-						></Box>
-						<CardContent
-							sx={{
-								padding: "16px",
-								position: "absolute",
-								bottom: "0",
-								width: "calc(100% - 32px)",
-								height: "calc(100% - 32px)",
-								"&:last-child": {
-									height: "calc(100% - 38px)",
-								},
-								color: "white",
-								"&:hover": {
-									"& .ellipsis": {
-										overflow: "unset",
-										textOverflow: "unset",
-										whiteSpace: "unset",
-									},
-								},
+								height: `${
+									poster_size
+										? poster_size * (278 / 185)
+										: "278"
+								}px`,
 							}}
 						>
-							<Typography
-								variant="h5"
-								className="ellipsis"
+							<Box
 								sx={{
+									width: "100%",
+									height: "100%",
+									backgroundImage:
+										"linear-gradient(0deg, rgba(0,0,0,1) 10%, rgba(255,255,255,0) 100%)",
+								}}
+							></Box>
+							<CardContent
+								sx={{
+									padding: "16px",
 									position: "absolute",
-									bottom: "44px",
-									overflow: "hidden",
-									textOverflow: "ellipsis",
-									whiteSpace: "nowrap",
-									fontWeight: "700",
-									width: "inherit",
+									bottom: "0",
+									width: "calc(100% - 32px)",
+									height: "calc(100% - 32px)",
+									"&:last-child": {
+										height: "calc(100% - 38px)",
+									},
+									color: "white",
+									"&:hover": {
+										"& .ellipsis": {
+											overflow: "unset",
+											textOverflow: "unset",
+											whiteSpace: "unset",
+										},
+									},
 								}}
 							>
-								{movie.title}
-							</Typography>
-							<Typography
-								variant="subtitle1"
-								sx={{
-									position: "absolute",
-									bottom: "16px",
-									width: "inherit",
-								}}
-							>
-								{movie.release_date.substring(0, 4)}
-							</Typography>
-						</CardContent>
-					</CardMedia>
+								<Typography
+									variant="h5"
+									className="ellipsis"
+									sx={{
+										position: "absolute",
+										bottom: "44px",
+										overflow: "hidden",
+										textOverflow: "ellipsis",
+										whiteSpace: "nowrap",
+										fontWeight: "700",
+										width: "inherit",
+									}}
+								>
+									{movie.title}
+								</Typography>
+								<Typography
+									variant="subtitle1"
+									sx={{
+										position: "absolute",
+										bottom: "16px",
+										width: "inherit",
+									}}
+								>
+									{movie.release_date.substring(0, 4)}
+								</Typography>
+							</CardContent>
+						</CardMedia>
+					</Link>
 				</CardActionArea>
 			</Card>
 		);
 	} else {
-		throw new TypeError("La película no tiene el tipo correcto.");
+		throw new ErrorStatus("La película no tiene el tipo correcto", 400);
 	}
 }

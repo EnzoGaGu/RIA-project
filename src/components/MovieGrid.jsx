@@ -3,16 +3,41 @@ import MovieList from "../types/MovieList";
 import MovieCard from "./MovieCard";
 import MovieCardSkeleton from "./MovieCardSkeleton";
 import Movie from "../types/Movie";
+import { useEffect, useRef } from "react";
 
 export default function MovieGrid({
 	movies,
 	loading,
 	hasMore,
-	observerTarget,
 	setBackground,
+	onReachBottom,
 }) {
 	const theme = useTheme();
 	const isLgUp = useMediaQuery(theme.breakpoints.up("lg"));
+	const observerTarget = useRef(null);
+
+	useEffect(() => {
+		if (onReachBottom) {
+			const observer = new IntersectionObserver(
+				(entries) => {
+					if (entries[0].isIntersecting) {
+						onReachBottom();
+					}
+				},
+				{ threshold: 1 }
+			);
+
+			if (observerTarget.current) {
+				observer.observe(observerTarget.current);
+			}
+
+			return () => {
+				if (observerTarget.current) {
+					observer.unobserve(observerTarget.current);
+				}
+			};
+		}
+	}, [observerTarget, onReachBottom]);
 
 	return (
 		<>
