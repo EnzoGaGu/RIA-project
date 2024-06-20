@@ -44,8 +44,8 @@ export default function MovieGrid({
 			<Grid
 				container
 				spacing={2}
-				justifyContent={"space-between"}
-				alignItems={"center"}
+				justifyContent="flex-start"
+				alignItems="center"
 			>
 				{movies instanceof MovieList &&
 				Array.isArray(movies.results) &&

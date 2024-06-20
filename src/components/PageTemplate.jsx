@@ -60,7 +60,7 @@ export default function PageTemplate({ children, navBarHasSearchBar }) {
 						setQuery={setQuery}
 					/>
 				)}
-				<Box padding={"2rem"}>
+				<Box padding="2rem">
 					{cloneElement(children, {
 						scrollToTop,
 						setBackground,

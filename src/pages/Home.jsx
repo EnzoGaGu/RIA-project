@@ -2,9 +2,6 @@ import React, { useEffect, useRef, useState } from "react";
 import { discoverMovies, searchMovies } from "../services/TmdbApi";
 import MovieList from "../types/MovieList";
 import Movie from "../types/Movie";
-import { Box } from "@mui/material";
-import useDebounce from "../utils/Debouncer";
-import NavBar from "../components/NavBar";
 import MovieGrid from "../components/MovieGrid";
 import PageTemplate from "../components/PageTemplate";
 

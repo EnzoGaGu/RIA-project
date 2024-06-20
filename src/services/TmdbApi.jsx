@@ -8,7 +8,7 @@ const API_KEY = "a5ccf2019c0fd5338578c73a931b2a8b";
 const API_ACCESS_TOKEN =
 	"eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhNWNjZjIwMTljMGZkNTMzODU3OGM3M2E5MzFiMmE4YiIsInN1YiI6IjY2NjY0MWJmMDMwNjM1Y2RhZTE1OTMyZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.49v4TNIFXcerkONApoib-ibeiHTXVGJOc5j9NFiaU14";
 
-async function fethAPI(endpoint, queryParams) {
+async function fetchAPI(endpoint, queryParams) {
 	var url = `${API_BASE_URL}${endpoint}?language=es-UY`;
 	if (
 		Array.isArray(queryParams) &&
@@ -67,12 +67,14 @@ export async function discoverMovies(page) {
 			filters.push(new Filter("page", 1));
 		}
 
-		return fethAPI("/discover/movie", filters)
+		return fetchAPI("/discover/movie", filters)
 			.then((json) => {
 				return new MovieList(json);
 			})
 			.catch(async (error) => {
-				console.error(`/discover/movie (${error.status}): ${error.message}`);
+				console.error(
+					`/discover/movie (${error.status}): ${error.message}`
+				);
 				throw error;
 			});
 	} else {
@@ -90,12 +92,14 @@ export async function searchMovies(page, query) {
 		}
 		filters.push(new Filter("query", query));
 
-		return fethAPI("/search/movie", filters)
+		return fetchAPI("/search/movie", filters)
 			.then((json) => {
 				return new MovieList(json);
 			})
 			.catch(async (error) => {
-				console.error(`/search/movie (${error.status}): ${error.message}`);
+				console.error(
+					`/search/movie (${error.status}): ${error.message}`
+				);
 				throw error;
 			});
 	} else {
@@ -105,15 +109,34 @@ export async function searchMovies(page, query) {
 
 export async function movieDetails(movie_id) {
 	if (typeof movie_id === "number" && Number.isInteger(movie_id)) {
-		return fethAPI(`/movie/${movie_id}`, [])
+		return fetchAPI(`/movie/${movie_id}`, [])
 			.then((json) => {
 				return new MovieDetails(json);
 			})
 			.catch((error) => {
-				console.error(`/movie/${movie_id} (${error.status}): ${error.message}`)
+				console.error(
+					`/movie/${movie_id} (${error.status}): ${error.message}`
+				);
 				throw error;
 			});
 	} else {
 		throw new ErrorStatus("La ID de la película debe ser un entero", 400);
 	}
+}
+
+export async function countries() {
+	return fetchAPI("/configuration/countries", [])
+		.then((json) => {
+			const countries = new Map();
+			json.forEach((country) => {
+				countries.set(country.iso_3166_1, country.native_name);
+			});
+			return countries;
+		})
+		.catch((error) => {
+			console.error(
+				`/configuration/countries (${error.status}): ${error.message}`
+			);
+			throw error;
+		});
 }
