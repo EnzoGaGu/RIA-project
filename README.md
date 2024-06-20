@@ -1,4 +1,4 @@
-# Laboratoro RIA: Frontend de una web de peliculas
+# Laboratoro RIA: Frontend de una web de películas
 
 En este taller se realizó un frontend con el uso de APIs públicas disponibles para investigar hacerca del uso de React en el desarrollo frontend. La web cuenta con el uso de distintos endpoint del API para presentar un listado de películas, realizar búsquedas y ver detalles delas películas.
 
@@ -61,9 +61,11 @@ Se optó por el uso de The Movie Database, por una decisión unánime en el equi
 
 ## Mapa de navegación y usabilidad.
 ![Mapa de navegación](https://github.com/EnzoGaGu/RIA-project/assets/50501652/12e379be-f4b1-43bb-86a4-5b8d6157d87c)
+
 **Leyenda**
-Blanco: páginas que el usuario visita
-Rojo: acciones que el usuario realiza
+
+- Blanco: páginas que el usuario visita
+- Rojo: acciones que el usuario realiza
 
 ### Decisiones de usabilidad
 Se tomó la decisión de hacer una web que vaya directo al listado debido a dos factores; el primero es que la mayoría de webs del estilo cuenta con un listado de películas apenas se ingresa, lo cual le facilita al usuario ver el catálogo y adicionalmente ya se encuentra familiarizado con dicha forma. Por otra parte fue una decisión del grupo para generar menores puntos intermedios para poder llegar a la información.
