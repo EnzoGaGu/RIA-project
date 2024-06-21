@@ -37,6 +37,7 @@ En este taller se realizó un frontend con el uso de APIs públicas disponibles 
 - [Node.js v21.7.3](https://nodejs.org)
 - [NPM v10.5.2](https://www.npmjs.com)
 - [API pública (The Movie Database)](https://developer.themoviedb.org)
+- [Docker](https://docs.docker.com/get-docker/)
 
 ## Utilización
 
