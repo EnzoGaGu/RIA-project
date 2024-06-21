@@ -18,11 +18,18 @@ En este taller se realizó un frontend con el uso de APIs públicas disponibles 
 
 ## Utilización
 
-- Instalar Node.js y NPM desde su página oficial.
-- Descargar la app desde este mismo repositorio.
-- Abrir el proyecto con VSCode o desde la consola de comandos del SO.
-- Utilizar el comando npm install para instalar las librerías necesarias.
-- Levantar el programa con npm run dev. 
+1. Instalar Node.js y NPM desde su página oficial.
+2. Descargar la app desde este mismo repositorio.
+3. Abrir el proyecto con VSCode o desde la consola de comandos del SO.
+4. Utilizar el siguiente comando para instalar las librerías necesarias:
+  ```
+   npm install
+  ```
+ 
+5. Levantar el programa con
+  ```
+   npm run dev
+  ``` 
 
 
 ## **Historias de usuario**
