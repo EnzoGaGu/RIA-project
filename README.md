@@ -10,8 +10,20 @@ En este taller se realizó un frontend con el uso de APIs públicas disponibles 
 
 ## Tecnologías usadas
 
-- React version ...
+- React v18.2.0
+- Vite 4
+- Node.js v21.7.3
+- NPM v10.5.2
 - API pública (The Movie Database)
+
+## Utilización
+
+- Instalar Node.js y NPM desde su página oficial.
+- Descargar la app desde este mismo repositorio.
+- Abrir el proyecto con VSCode o desde la consola de comandos del SO.
+- Utilizar el comando npm install para instalar las librerías necesarias.
+- Levantar el programa con npm run dev. 
+
 
 ## **Historias de usuario**
 
