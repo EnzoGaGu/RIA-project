@@ -1,0 +1,11 @@
+name: peliculas-uy
+services:
+  nginx:
+    container_name: peliculas.uy
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 8001:80
+    environment:
+      NODE_ENV: production
